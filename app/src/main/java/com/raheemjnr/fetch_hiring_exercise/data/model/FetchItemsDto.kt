@@ -12,7 +12,9 @@ data class FetchItemsDto(
     val name: String? = null,
 )
 
-// data class of item to be expose to Ui
+/**
+ *  data class of item to be expose to [FetchItemsScreen.kt]
+ *  */
 data class FetchItems(
     val id: Int? = null,
     val listId: Int? = null,

@@ -9,6 +9,9 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.raheemjnr.fetch_hiring_exercise.data.repo.FetchRepo
 
+/**
+ * Viewmodel to fetch our data using paging [PageNumSource]
+ * **/
 class FetchVM(private val repo: FetchRepo) : ViewModel() {
 
 

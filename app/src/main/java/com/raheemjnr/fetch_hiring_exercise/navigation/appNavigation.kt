@@ -9,6 +9,13 @@ import androidx.navigation.compose.rememberNavController
 import com.raheemjnr.fetch_hiring_exercise.ui.screen.FetchExerciseScreen
 import com.raheemjnr.fetch_hiring_exercise.ui.theme.Fetch_Hiring_ExerciseTheme
 
+
+
+//sealed class to list out screens that will be available in app
+sealed class MainScreen(val route: String) {
+    object FetchScreen : MainScreen("fetchScreen")
+}
+
 /** nav graph to navigate
  * to respective screens */
 @ExperimentalAnimationApi

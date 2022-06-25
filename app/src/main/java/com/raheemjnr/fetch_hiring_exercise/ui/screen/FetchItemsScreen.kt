@@ -20,10 +20,14 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
+import com.raheemjnr.fetch_hiring_exercise.data.model.FetchItems
 import com.raheemjnr.fetch_hiring_exercise.data.repo.FetchRepoImpl
 import com.raheemjnr.fetch_hiring_exercise.ui.FetchVM
 import com.raheemjnr.fetch_hiring_exercise.ui.FetchVmFactory
 
+/**
+ * Screen that contain data from [FetchItems]
+ * */
 @Composable
 fun FetchExerciseScreen() {
 
@@ -32,11 +36,11 @@ fun FetchExerciseScreen() {
         factory = FetchVmFactory(FetchRepoImpl())
     )
 
-    val exerciseList = viewModel.getExerciseList().collectAsLazyPagingItems()
+    val pagingItems = viewModel.getExerciseList().collectAsLazyPagingItems()
     val lazyListState = rememberLazyListState()
 
     LazyColumn(state = lazyListState) {
-        items(items = exerciseList,
+        items(items = pagingItems,
             key = { listItem ->
                 listItem.id.toString()
             }
@@ -47,7 +51,7 @@ fun FetchExerciseScreen() {
                 }
             }
         }
-        exerciseList.apply {
+        pagingItems.apply {
             when {
                 //refresh list
                 loadState.refresh is LoadState.Loading -> item {
