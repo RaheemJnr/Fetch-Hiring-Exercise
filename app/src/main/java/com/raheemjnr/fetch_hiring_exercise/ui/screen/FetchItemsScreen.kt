@@ -25,10 +25,14 @@ fun FetchExerciseScreen() {
     val viewModel: FetchVM = viewModel(
         factory = FetchVmFactory(FetchRepoImpl())
     )
-
+    /***
+     *  holds [LazyPagingItems<FetchItems]
+     *  to be displayed to users */
     val pagingItems = viewModel.getExerciseList().collectAsLazyPagingItems()
+    //paging state
     val lazyListState = rememberLazyListState()
 
+    //lazy column
     LazyColumn(state = lazyListState) {
         items(items = pagingItems,
             key = { listItem ->
@@ -41,6 +45,7 @@ fun FetchExerciseScreen() {
                 }
             }
         }
+        //check the current state during paging and apply desired effect
         pagingItems.apply {
             when {
                 //refresh list
