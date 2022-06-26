@@ -8,7 +8,7 @@ import com.raheemjnr.fetch_hiring_exercise.data.network.FetchExerciseApiCall
 import kotlinx.coroutines.flow.Flow
 
 
-/**
+/***
  * interface to get our data
  */
 interface FetchRepo {
