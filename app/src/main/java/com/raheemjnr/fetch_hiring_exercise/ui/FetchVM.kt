@@ -18,12 +18,13 @@ class FetchVM(private val repo: FetchRepo) : ViewModel() {
     /**
      * here i used a [Pager] to page data received from [FetchRepo]
      * and according to the requirement remove items that have empty name or is blank
+     * then after getting a list that name isn't blank or empty i sorted the list by listId then by name as instructed
      * **/
     fun getExerciseList(pageSize: Int = 20) =
         Pager(config = PagingConfig(pageSize = pageSize, initialLoadSize = pageSize)) {
             PageNumSource { pageNum, pageSize ->
                 repo.getItemsList(pageNum, pageSize).filter { !it.name.isNullOrEmpty() }
-                    .sortedBy { it.listId}
+                    .sortedWith(compareBy({ it.listId }, { it.name?.substring(5) }))
             }
         }.flow.cachedIn(viewModelScope)
 
