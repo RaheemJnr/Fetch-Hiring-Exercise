@@ -1,21 +1,10 @@
 package com.raheemjnr.fetch_hiring_exercise.ui.screen
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Text
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogProperties
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -24,6 +13,7 @@ import com.raheemjnr.fetch_hiring_exercise.data.model.FetchItems
 import com.raheemjnr.fetch_hiring_exercise.data.repo.FetchRepoImpl
 import com.raheemjnr.fetch_hiring_exercise.ui.FetchVM
 import com.raheemjnr.fetch_hiring_exercise.ui.FetchVmFactory
+import com.raheemjnr.fetch_hiring_exercise.ui.components.ExerciseItem
 
 /**
  * Screen that contain data from [FetchItems]
@@ -47,7 +37,7 @@ fun FetchExerciseScreen() {
         ) { item ->
             item?.let {
                 Column {
-                    Text(text = "$it")
+                    ExerciseItem(item = it)
                 }
             }
         }
@@ -55,37 +45,14 @@ fun FetchExerciseScreen() {
             when {
                 //refresh list
                 loadState.refresh is LoadState.Loading -> item {
-                    Dialog(
-                        onDismissRequest = {},
-                        DialogProperties(
-                            dismissOnBackPress = false,
-                            dismissOnClickOutside = false
-                        )
-                    ) {
-                        Box(
-                            modifier = Modifier
-                                .size(55.dp)
-                                .background(
-                                    Color.Transparent,
-                                    shape = RoundedCornerShape(8.dp)
-                                )
-                        ) {
-
-                        }
-                    }
+                    CircularProgressIndicator()
                 }
                 //add to the already available list
                 loadState.append is LoadState.Loading -> item {
-
+                    CircularProgressIndicator()
                 }
                 loadState.refresh is LoadState.Error -> item {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.BottomCenter,
-
-                        ) {
-
-                    }
+                    CircularProgressIndicator()
                 }
             }
         }
